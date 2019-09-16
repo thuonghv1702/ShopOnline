@@ -42,5 +42,6 @@ namespace ShopOnline.Model.Models
 
         [ForeignKey("PostCategoryID")]
         public virtual PostCategory PostCategory { set; get; }
+        public virtual IEnumerable<PostTag> PostTags { set; get; }
     }
 }
