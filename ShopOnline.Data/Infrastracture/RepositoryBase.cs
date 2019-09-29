@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShopOnline.Data.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Infrastracture
 {
-    public abstract class RepositoryBase<T>: IRepository<T> where T : class
+    public abstract class RepositoryBase<T> : IRepository<T> where T : class
     {
         #region Properties
         private ShopOnlineDbContext dataContext;

@@ -8,14 +8,16 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Model.Models
 {
-    [Table("Footers")]
-    public class Footer
+    [Table("Errors")]
+    public class Error
     {
         [Key]
-        [MaxLength(50)]
-        public string ID { set; get; }
+        public int ID { set; get; }
 
-        [Required]
-        public string Content { set; get; }
+        public string Message { set; get; }
+
+        public string StackTrace { set; get; }
+
+        public DateTime CreatedDate { set; get; }
     }
 }

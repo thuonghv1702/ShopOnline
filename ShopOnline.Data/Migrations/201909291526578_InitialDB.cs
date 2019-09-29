@@ -8,11 +8,22 @@ namespace ShopOnline.Data.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.Errors",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Message = c.String(),
+                        StackTrace = c.String(),
+                        CreatedDate = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
                 "dbo.Footers",
                 c => new
                     {
                         ID = c.String(nullable: false, maxLength: 50),
-                        Centent = c.String(nullable: false),
+                        Content = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -78,25 +89,25 @@ namespace ShopOnline.Data.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
-                        Alias = c.String(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 256),
+                        Alias = c.String(nullable: false, maxLength: 256),
                         CategoryID = c.Int(nullable: false),
-                        Image = c.String(),
+                        Image = c.String(maxLength: 256),
                         MoreImages = c.String(storeType: "xml"),
                         Price = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Promotion = c.Decimal(precision: 18, scale: 2),
+                        PromotionPrice = c.Decimal(precision: 18, scale: 2),
                         Warranty = c.Int(),
-                        Description = c.String(),
+                        Description = c.String(maxLength: 500),
                         Content = c.String(),
                         HomeFlag = c.Boolean(),
                         HotFlag = c.Boolean(),
                         ViewCount = c.Int(),
-                        MetaKeyword = c.String(maxLength: 256),
-                        MetaDescription = c.String(maxLength: 256),
                         CreatedDate = c.DateTime(),
                         CreatedBy = c.String(maxLength: 256),
                         UpdatedDate = c.DateTime(),
                         UpdatedBy = c.String(maxLength: 256),
+                        MetaKeyword = c.String(maxLength: 256),
+                        MetaDescription = c.String(maxLength: 256),
                         Status = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
@@ -115,12 +126,12 @@ namespace ShopOnline.Data.Migrations
                         DisplayOrder = c.Int(),
                         Image = c.String(),
                         HomeFlag = c.Boolean(),
-                        MetaKeyword = c.String(maxLength: 256),
-                        MetaDescription = c.String(maxLength: 256),
                         CreatedDate = c.DateTime(),
                         CreatedBy = c.String(maxLength: 256),
                         UpdatedDate = c.DateTime(),
                         UpdatedBy = c.String(maxLength: 256),
+                        MetaKeyword = c.String(maxLength: 256),
+                        MetaDescription = c.String(maxLength: 256),
                         Status = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
@@ -133,12 +144,12 @@ namespace ShopOnline.Data.Migrations
                         Name = c.String(nullable: false, maxLength: 256),
                         Alias = c.String(nullable: false, maxLength: 256, unicode: false),
                         Content = c.String(),
-                        MetaKeyword = c.String(maxLength: 256),
-                        MetaDescription = c.String(maxLength: 256),
                         CreatedDate = c.DateTime(),
                         CreatedBy = c.String(maxLength: 256),
                         UpdatedDate = c.DateTime(),
                         UpdatedBy = c.String(maxLength: 256),
+                        MetaKeyword = c.String(maxLength: 256),
+                        MetaDescription = c.String(maxLength: 256),
                         Status = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
@@ -155,12 +166,12 @@ namespace ShopOnline.Data.Migrations
                         DisplayOrder = c.Int(),
                         Image = c.String(maxLength: 256),
                         HomeFlag = c.Boolean(),
-                        MetaKeyword = c.String(maxLength: 256),
-                        MetaDescription = c.String(maxLength: 256),
                         CreatedDate = c.DateTime(),
                         CreatedBy = c.String(maxLength: 256),
                         UpdatedDate = c.DateTime(),
                         UpdatedBy = c.String(maxLength: 256),
+                        MetaKeyword = c.String(maxLength: 256),
+                        MetaDescription = c.String(maxLength: 256),
                         Status = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
@@ -172,24 +183,24 @@ namespace ShopOnline.Data.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 256),
                         Alias = c.String(nullable: false, maxLength: 256, unicode: false),
-                        PostCategoryID = c.Int(nullable: false),
+                        CategoryID = c.Int(nullable: false),
                         Image = c.String(maxLength: 256),
                         Description = c.String(maxLength: 500),
                         Content = c.String(),
                         HomeFlag = c.Boolean(),
                         HotFlag = c.Boolean(),
                         ViewCount = c.Int(),
-                        MetaKeyword = c.String(maxLength: 256),
-                        MetaDescription = c.String(maxLength: 256),
                         CreatedDate = c.DateTime(),
                         CreatedBy = c.String(maxLength: 256),
                         UpdatedDate = c.DateTime(),
                         UpdatedBy = c.String(maxLength: 256),
+                        MetaKeyword = c.String(maxLength: 256),
+                        MetaDescription = c.String(maxLength: 256),
                         Status = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.PostCategories", t => t.PostCategoryID, cascadeDelete: true)
-                .Index(t => t.PostCategoryID);
+                .ForeignKey("dbo.PostCategories", t => t.CategoryID, cascadeDelete: true)
+                .Index(t => t.CategoryID);
             
             CreateTable(
                 "dbo.PostTags",
@@ -235,7 +246,7 @@ namespace ShopOnline.Data.Migrations
                         Name = c.String(nullable: false, maxLength: 256),
                         Description = c.String(maxLength: 256),
                         Image = c.String(maxLength: 256),
-                        URL = c.String(maxLength: 256),
+                        Url = c.String(maxLength: 256),
                         DisplayOrder = c.Int(),
                         Status = c.Boolean(nullable: false),
                     })
@@ -287,7 +298,7 @@ namespace ShopOnline.Data.Migrations
             DropForeignKey("dbo.ProductTags", "ProductID", "dbo.Products");
             DropForeignKey("dbo.PostTags", "TagID", "dbo.Tags");
             DropForeignKey("dbo.PostTags", "PostID", "dbo.Posts");
-            DropForeignKey("dbo.Posts", "PostCategoryID", "dbo.PostCategories");
+            DropForeignKey("dbo.Posts", "CategoryID", "dbo.PostCategories");
             DropForeignKey("dbo.OrderDetails", "ProductID", "dbo.Products");
             DropForeignKey("dbo.Products", "CategoryID", "dbo.ProductCategories");
             DropForeignKey("dbo.OrderDetails", "OrderID", "dbo.Orders");
@@ -296,7 +307,7 @@ namespace ShopOnline.Data.Migrations
             DropIndex("dbo.ProductTags", new[] { "ProductID" });
             DropIndex("dbo.PostTags", new[] { "TagID" });
             DropIndex("dbo.PostTags", new[] { "PostID" });
-            DropIndex("dbo.Posts", new[] { "PostCategoryID" });
+            DropIndex("dbo.Posts", new[] { "CategoryID" });
             DropIndex("dbo.Products", new[] { "CategoryID" });
             DropIndex("dbo.OrderDetails", new[] { "ProductID" });
             DropIndex("dbo.OrderDetails", new[] { "OrderID" });
@@ -318,6 +329,7 @@ namespace ShopOnline.Data.Migrations
             DropTable("dbo.Menus");
             DropTable("dbo.MenuGroups");
             DropTable("dbo.Footers");
+            DropTable("dbo.Errors");
         }
     }
 }

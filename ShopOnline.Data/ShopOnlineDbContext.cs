@@ -10,9 +10,9 @@ namespace ShopOnline.Data
 {
     public class ShopOnlineDbContext : DbContext
     {
-        public ShopOnlineDbContext() : base("ShopOnlineConection") {
+        public ShopOnlineDbContext() : base("ShopOnlineConection")
+        {
             this.Configuration.LazyLoadingEnabled = false;
-
         }
 
         public DbSet<Footer> Footers { set; get; }
@@ -35,10 +35,12 @@ namespace ShopOnline.Data
         public DbSet<Tag> Tags { set; get; }
 
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
+        public DbSet<Error> Errors { set; get; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+
+        protected override void OnModelCreating(DbModelBuilder builder)
         {
-           
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShopOnline.Data.Infrastracture;
+using ShopOnline.Data.Infrastructure;
 using ShopOnline.Data.Repositories;
 using ShopOnline.Model.Models;
 using System;
@@ -21,6 +22,12 @@ namespace ShopOnline.UnitTest.RepositoryTest
             dbFactory = new DbFactory();
             objRepository = new PostCategoryRepository(dbFactory);
             unitOfWork = new UnitOfWork(dbFactory);
+        }
+        [TestMethod]
+        public void PostCategory_Repository_GetAll()
+        {
+            var list = objRepository.GetAll().ToList();
+            Assert.AreEqual(3, list.Count);
         }
 
         [TestMethod]

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ShopOnline.Model.Models
 {
     [Table("Posts")]
-    public class Post :Auditable
+    public class Post : Auditable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -26,7 +26,7 @@ namespace ShopOnline.Model.Models
         public string Alias { set; get; }
 
         [Required]
-        public int PostCategoryID { set; get; }
+        public int CategoryID { set; get; }
 
         [MaxLength(256)]
         public string Image { set; get; }
@@ -40,8 +40,9 @@ namespace ShopOnline.Model.Models
         public bool? HotFlag { set; get; }
         public int? ViewCount { set; get; }
 
-        [ForeignKey("PostCategoryID")]
+        [ForeignKey("CategoryID")]
         public virtual PostCategory PostCategory { set; get; }
+
         public virtual IEnumerable<PostTag> PostTags { set; get; }
     }
 }

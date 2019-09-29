@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShopOnline.Data.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace ShopOnline.Data.Infrastracture
 {
     public class DbFactory : Disposable, IDbFactory
     {
-        ShopOnlineDbContext dbContext;
+        private ShopOnlineDbContext dbContext;
 
         public ShopOnlineDbContext Init()
         {
@@ -18,10 +19,7 @@ namespace ShopOnline.Data.Infrastracture
         protected override void DisposeCore()
         {
             if (dbContext != null)
-            {
                 dbContext.Dispose();
-
-            }
         }
     }
 }

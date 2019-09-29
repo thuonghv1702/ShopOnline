@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Repositories
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface IErrorRepository : IRepository<Error>
     {
     }
 
-    public class ProductRepository : RepositoryBase<Product>, IProductRepository
+    public class ErrorRepository : RepositoryBase<Error>, IErrorRepository
     {
-        public ProductRepository(IDbFactory dbFactory) : base(dbFactory)
+        public ErrorRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
     }
